@@ -20,14 +20,18 @@ class SearchByAuthorUI:
                 search_input.send_keys(author_name)
                 search_input.submit()
             except Exception as e:
-                allure.attach(str(e), name="error", attachment_type=allure.attachment_type.TEXT)
+                allure.attach(str(e), name="error",
+                              attachment_type=allure.attachment_type.TEXT)
                 raise AssertionError(f"Не удалось ввести фразу: {e}")
 
         with allure.step("Дождаться появления карточек товаров"):
             try:
                 WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, ".product-card"))
+                    EC.presence_of_element_located((
+                        By.CSS_SELECTOR, ".product-card"))
                 )
             except Exception as e:
-                allure.attach(str(e), name="error", attachment_type=allure.attachment_type.TEXT)
-                raise AssertionError(f"Не удалось дождаться результатов поиска: {e}")
+                allure.attach(str(e), name="error",
+                              attachment_type=allure.attachment_type.TEXT)
+                raise AssertionError(
+                    f"Не удалось дождаться результатов поиска: {e}")

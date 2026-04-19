@@ -13,7 +13,8 @@ class ChitaiGorodAPI:
             self.session.headers.update({"Authorization": f"Bearer {token}"})
 
     @allure.step("Поиск товаров по фразе '{phrase}'")
-    def search_products(self, phrase: str = None, page: int = 1, per_page: int = 2, city_id: int = 2):
+    def search_products(self, phrase: str = None,
+                        page: int = 1, per_page: int = 2, city_id: int = 2):
         url = f"{self.base_url}/product"
         params = {
             "customerCityId": city_id,
@@ -34,7 +35,8 @@ class ChitaiGorodAPI:
             "suggests[per-page]": per_page,
             "phrase": phrase,
             "abTestProductsLimitGroup": 1,
-            "include": "authors,bookCycles,categories,publishers,publisherSeries,products"
+            "include": "authors,bookCycles,"
+                       "categories,publishers,publisherSeries,products"
         }
         response = self.session.get(url, params=params)
         return response

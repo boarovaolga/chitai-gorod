@@ -23,7 +23,8 @@ def test_search_by_author(driver):
 
     with allure.step("Проверить, что появились результаты поиска"):
         products = WebDriverWait(driver, 15).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".product-card"))
+            EC.presence_of_all_elements_located((
+                By.CSS_SELECTOR, ".product-card"))
         )
         assert len(products) > 0, "Не найдено ни одной карточки товара"
 
@@ -40,7 +41,9 @@ def test_add_to_cart(driver):
 
     with allure.step("Получаем результат добавления книги в корзину"):
         counter = WebDriverWait(driver, 15).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid-indicator-header="cartCounter"]'))
+            EC.presence_of_element_located((
+                By.CSS_SELECTOR,
+                '[data-testid-indicator-header="cartCounter"]'))
         )
         counter_value = counter.text
 
@@ -65,10 +68,12 @@ def test_delete_from_cart(driver):
     with allure.step("Проверяем, что корзина пустая"):
         try:
             counter = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid-indicator-header="cartCounter"]'))
+                EC.presence_of_element_located((
+                    By.CSS_SELECTOR,
+                    '[data-testid-indicator-header="cartCounter"]'))
             )
             assert counter.text == "0"
-        except:
+        except Exception:
             pass
 
 
@@ -84,7 +89,8 @@ def test_search_by_latina(driver):
 
     with allure.step("Проверить, что появились результаты поиска"):
         products = WebDriverWait(driver, 15).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".product-card"))
+            EC.presence_of_all_elements_located((
+                By.CSS_SELECTOR, ".product-card"))
         )
         assert len(products) > 0, "Не найдено ни одной карточки товара"
 
@@ -101,6 +107,7 @@ def test_search_by_title(driver):
 
     with allure.step("Проверить, что появились результаты поиска"):
         products = WebDriverWait(driver, 15).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".product-card"))
+            EC.presence_of_all_elements_located((
+                By.CSS_SELECTOR, ".product-card"))
         )
         assert len(products) > 0, "Не найдено ни одной карточки товара"

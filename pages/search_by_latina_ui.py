@@ -20,14 +20,19 @@ class SearchByLatinaUi:
                 search_input.send_keys(book_title)
                 search_input.submit()
             except Exception as e:
-                allure.attach(str(e), name="Ошибка поиска по латинице", attachment_type=allure.attachment_type.TEXT)
-                raise AssertionError(f"Не удалось выполнить поиск по латинице: {e}")
+                allure.attach(str(e), name="Ошибка поиска по латинице",
+                              attachment_type=allure.attachment_type.TEXT)
+                raise AssertionError(
+                    f"Не удалось выполнить поиск по латинице: {e}")
 
         with allure.step("Дождаться появления карточек товаров"):
             try:
                 WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, ".product-card"))
+                    EC.presence_of_element_located((
+                        By.CSS_SELECTOR, ".product-card"))
                 )
             except Exception as e:
-                allure.attach(str(e), name="Ошибка ожидания карточек", attachment_type=allure.attachment_type.TEXT)
-                raise AssertionError(f"Не удалось дождаться результатов поиска: {e}")
+                allure.attach(str(e), name="Ошибка ожидания карточек",
+                              attachment_type=allure.attachment_type.TEXT)
+                raise AssertionError(
+                    f"Не удалось дождаться результатов поиска: {e}")

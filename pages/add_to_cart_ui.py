@@ -2,8 +2,10 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import ElementClickInterceptedException, TimeoutException
+from selenium.common.exceptions import (ElementClickInterceptedException,
+                                        TimeoutException)
 import allure
+
 
 @allure.description("Добавление товара в корзину")
 class AddToCartUI:
@@ -20,13 +22,15 @@ class AddToCartUI:
             search_input.submit()
 
             WebDriverWait(self.driver, 15).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".product-card"))
+                EC.presence_of_element_located((
+                    By.CSS_SELECTOR, ".product-card"))
             )
 
         with allure.step("Закрыть всплывающее уведомление, если оно есть"):
             try:
                 close_btn = WebDriverWait(self.driver, 3).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".agreement-notice_button"))
+                    EC.element_to_be_clickable((
+                        By.CSS_SELECTOR, ".agreement-notice_button"))
                 )
                 close_btn.click()
                 time.sleep(0.5)
@@ -37,23 +41,32 @@ class AddToCartUI:
             try:
                 self.driver.find_element(By.TAG_NAME, "body").click()
                 time.sleep(0.3)
-            except:
+            except Exception:
                 pass
 
         with allure.step("Нажать кнопку 'В корзину' для найденного товара"):
             add_button = WebDriverWait(self.driver, 15).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "[data-testid-button-mini-product-card='canBuy']"))
+                EC.presence_of_element_located((
+                    By.CSS_SELECTOR, "[data-testid-button-mini-product-card="
+                                     "'canBuy']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'instant'});", add_button)
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView("
+                "{block: 'center', behavior: 'instant'});",
+                add_button)
             time.sleep(0.5)
 
             try:
                 add_button.click()
             except ElementClickInterceptedException:
-                allure.attach("Обычный клик перехвачен, используем JavaScript клик", name="click_info", attachment_type=allure.attachment_type.TEXT)
+                allure.attach("Обычный клик перехвачен, используем "
+                              "JavaScript клик", name="click_info",
+                              attachment_type=allure.attachment_type.TEXT)
                 self.driver.execute_script("arguments[0].click();", add_button)
 
         with allure.step("Дождаться появления счётчика корзины"):
             WebDriverWait(self.driver, 15).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid-indicator-header="cartCounter"]'))
+                EC.presence_of_element_located((
+                    By.CSS_SELECTOR,
+                    '[data-testid-indicator-header="cartCounter"]'))
             )
