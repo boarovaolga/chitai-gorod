@@ -16,7 +16,7 @@ class TestApiSearch:
         api = ChitaiGorodAPI(Token)
         response = api.search_products()
 
-        with ((((((((allure.step("Статус-код 400"))))))))):
+        with allure.step("Статус-код 400"):
             assert response.status_code == 400, (
                 f"Ожидался 400, получен {response.status_code}")
 

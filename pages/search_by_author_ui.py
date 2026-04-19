@@ -1,12 +1,13 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.remote.webdriver import WebDriver
 import allure
 
 
 @allure.description("Поиск по автору")
 class SearchByAuthorUI:
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
 
     @allure.step("Поиск книги по автору '{author_name}'")

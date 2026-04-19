@@ -1,5 +1,6 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -7,7 +8,7 @@ from conf import UI_url
 
 
 @pytest.fixture
-def driver(request):
+def driver(request) -> WebDriver:
     """
     Фикстура для запуска браузера, закрытия
     всплывающих окон и снятия скриншотов при падении.
